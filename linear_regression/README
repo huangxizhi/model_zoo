@@ -1,2 +1,30 @@
-
+程序结构：
+（1）构造train data和validation data
+  通过np.linspace产生一个ndarray，代表X的序列，并对X进行shuffle打乱顺序；这样train的时候数据输入具有随机性，更能代表真实的数据；
+  产生Y的时候使用np.random.normal(期望、方差、个数)加入随机数；
+  
+（2）构造模型
+  加入一层Dense全链接；由于变量是有X，因此输入层神经元就1个，所以input_dim=1，输出就一个Y，一个神经元，output_dim=1
+  回归的时候使用mean square error(mse)作为loss的评估，使用sgd作为优化器
+  
+（3）训练模型
+  使用model.train_on_batch(X,Y)进行训练，返回cost
+  
+（4）评估与预测
+  通过model.evaluate(X_val, Y_val)评估验证集的误差；
+  通过model.predict(X_test)的Y_pred进行预测；
+  
+ 其他：
+ 1) 画图函数：import matplotlib.pyplot as plt
+ · 画(X, Y)这样的一些点：
+    plt.scatter(X, Y)
+    plt.show()
+    
+ · 根据一些点画一条线
+    plt.plot(X_test, Y_pred)
+    plt.show()
+    
+  2) 如何获取模型的参数值：
+    本例子中只有一层隐藏层，即Dense全连接层，直接去到该层后调用get_weights()获取值:
+    W, b = model.layers[0].get_weights()
 
